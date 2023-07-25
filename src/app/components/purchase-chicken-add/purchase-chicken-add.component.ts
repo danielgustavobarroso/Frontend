@@ -77,7 +77,7 @@ export class PurchaseChickenAddComponent {
     }
 
     if (this.purchaseChicken.totalAmount > this.moneyAvailable) {
-      alert('La cantidad de dinero de la venta supera al monto disponible.');
+      alert('La cantidad de dinero de la compra supera al monto disponible.');
       return;
     }
 
