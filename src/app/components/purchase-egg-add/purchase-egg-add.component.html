@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group" style="display:flex">
                     <label for="" style="width: 140px;">Precio unitario ($): </label>
-                    <input type="number" name="price" onchange="(function(event){event.value=parseFloat(event.value).toFixed(2);})(this)" [(ngModel)]="purchaseEgg.price" value="0.00" (ngModelChange)="modifyTotalAmount()" class="form-control" #price="ngModel" required min="0" max="1000000" style="width: 150px;">
+                    <input type="number" name="price" onkeypress="return event.charCode != 45" onchange="(function(event){event.value=parseFloat(event.value).toFixed(2);})(this)" [(ngModel)]="purchaseEgg.price" value="0.00" (ngModelChange)="modifyTotalAmount()" class="form-control" #price="ngModel" required min="0" max="1000000" style="width: 150px;">
                     <div *ngIf="price.invalid && (price.dirty || price.touched)">
                         <span *ngIf="price.errors?.['required']" style="margin-left: 20px; color: red;">El campo es requerido</span>
                         <span *ngIf="price.errors?.['min']" style="margin-left: 20px; color: red;">El valor mínimo permitido es 0</span>
