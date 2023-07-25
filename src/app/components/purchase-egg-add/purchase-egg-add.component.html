@@ -1,0 +1,44 @@
+<div style="text-align: center; margin-bottom: 30px; border: 1px solid black; padding-top: 20px; padding-bottom: 20px;">
+    <button style="width: 100px;" (click)="goToPurchaseEggList()">Volver</button>
+    <button style="width: 100px; margin-left: 30px;" (click)="cleanForm()">Limpiar</button>
+</div>
+
+<div class="container col-md-6" style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Datos para la Compra de Huevos</h3>
+        </div>
+        <div class="class-body">
+            <form #purchaseEggForm="ngForm" action="" style="margin: 20px 20px 20px 20px;" (ngSubmit)="savePurchase()" novalidate>
+                <div class="form-group">
+                    <label for="" style="width: 240px;">Unidades Disponibles: {{unitsAvailable}}</label>
+                    <label for="" style="width: 240px;">Límite de Huevos: {{eggLimit}}</label>
+                    <label for="" style="width: 240px;">Dinero Disponible: {{moneyAvailable | currency}}</label>
+                </div>
+                <div class="form-group" style="display:flex">
+                    <label for="" style="width: 140px;">Unidades:</label>
+                    <input type="number" name="units" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" [(ngModel)]="purchaseEgg.units" (ngModelChange)="modifyTotalAmount()" class="form-control" #units="ngModel" required min="1" max="10000" style="width: 150px;">
+                    <div *ngIf="units.invalid && (units.dirty || units.touched)">
+                        <span *ngIf="units.errors?.['required']" style="margin-left: 20px; color: red;">El campo es requerido</span>
+                        <span *ngIf="units.errors?.['min']" style="margin-left: 20px; color: red;">El valor mínimo permitido es 1</span>
+                        <span *ngIf="units.errors?.['max']" style="margin-left: 20px; color: red;">El valor máximo permitido es 10000</span>
+                    </div>
+                </div>
+                <div class="form-group" style="display:flex">
+                    <label for="" style="width: 140px;">Precio unitario ($): </label>
+                    <input type="number" name="price" onchange="(function(event){event.value=parseFloat(event.value).toFixed(2);})(this)" [(ngModel)]="purchaseEgg.price" value="0.00" (ngModelChange)="modifyTotalAmount()" class="form-control" #price="ngModel" required min="0" max="1000000" style="width: 150px;">
+                    <div *ngIf="price.invalid && (price.dirty || price.touched)">
+                        <span *ngIf="price.errors?.['required']" style="margin-left: 20px; color: red;">El campo es requerido</span>
+                        <span *ngIf="price.errors?.['min']" style="margin-left: 20px; color: red;">El valor mínimo permitido es 0</span>
+                        <span *ngIf="price.errors?.['max']" style="margin-left: 20px; color: red;">El valor máximo permitido es 1000000</span>
+                    </div>
+                </div>
+                <div class="form-group" style="display:flex">
+                    <label for="" style="width: 140px;">Total ($):</label>
+                    <input type="number" name="totalAmount" [(ngModel)]="purchaseEgg.totalAmount" class="form-control" disabled style="width: 250px;">
+                </div>
+                <button type="summit" class="btn btn-danger" [disabled]="!purchaseEggForm.valid">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div style="text-align: center; margin-bottom: 30px; border: 1px solid black; padding-top: 20px; padding-bottom: 20px;">
+    <button style="width: 100px;" (click)="reload()">Recargar</button>
+</div>
+
+<div class="loading" style="text-align: center;" *ngIf="loading">
+    <img src="../../../assets/images/Loading_icon.gif">
+</div>
+
+<div class="container" *ngIf="!this.loading && this.errorMessage != ''" style="text-align: center;">
+    <h6>Ha ocurrido un error. Por favor, intente la operación más tarde.</h6>
+    <img src="../../../assets/images/circulo_error.jpg" width="160px" height="160px">
+    <p>Detalle del error:</p>
+    <p>{{this.errorMessage}}</p>
+</div>
+
+<div class="container" *ngIf="!this.loading && this.errorMessage == '' && !this.chickens.length">
+    <h6 style="text-align: center;">No hay gallinas registradas en el sistema.</h6>        
+</div>
+
+<div class="container col-md-8" style="margin-top: 30px; margin-bottom: 30px;" *ngIf="!this.loading && this.errorMessage == '' && this.chickens.length">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Listado de Gallinas</h3>
+            <p>Cantidades => <span>[Total: {{chickenTotalCount}}]</span>
+            <span style="margin-left: 20px;">[Disponibles: {{chickenAvailableCount}}]</span>
+            <span style="margin-left: 20px;">[Descartadas: {{chickenDiscardedCount}}]</span>
+            <span style="margin-left: 20px;">[Vendidas: {{chickenSoldCount}}]</span>
+            <span style="margin-left: 20px;">[Muertas: {{chickenDeadCount}}]</span>
+            </p>
+        </div>
+        <div class="class-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>IDENTIFICADOR</th>
+                        <th>ESTADO</th>
+                        <th>FECHA/HORA DE ALTA</th>
+                        <th>ORIGEN</th>
+                        <th>FECHA/HORA ULT. PUESTA HUEVOS</th>
+                        <th>FECHA/HORA ULT. CAMBIO ESTADO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let c of chickens">
+                        <td>{{c.chickenId}}</td>
+                        <td>{{states.get(c.state)}}</td>
+                        <td>{{c.creationDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{origins.get(c.origin)}}</td>
+                        <td>{{c.lastEggDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{c.lastStateChangeDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div style="text-align: center; margin-bottom: 30px; border: 1px solid black; padding-top: 20px; padding-bottom: 20px;">
+    <button style="width: 100px;" (click)="reload()">Recargar</button>
+</div>
+
+<div class="loading" style="text-align: center;" *ngIf="loading">
+    <img src="../../../assets/images/Loading_icon.gif">
+</div>
+
+<div class="container" *ngIf="!this.loading && this.errorMessage != ''" style="text-align: center;">
+    <h6>Ha ocurrido un error. Por favor, intente la operación más tarde.</h6>
+    <img src="../../../assets/images/circulo_error.jpg" width="160px" height="160px">
+    <p>Detalle del error:</p>
+    <p>{{this.errorMessage}}</p>
+</div>
+
+<div class="container" style="margin-top: 30px; margin-bottom: 30px;" *ngIf="!this.loading && this.errorMessage == '' && this.report">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Reporte - Estado actual de la granja</h3>
+        </div>
+        <div class="class-body">
+            <p>Dinero disponible: {{report.farmMoney | currency}}</p>
+            <p>Límite de huevos: {{report.eggLimit}}</p>
+            <div style="display:flex">
+                <p>Cantidad de huevos disponibles: {{report.eggsCount}}</p>
+                <p style="color: red; margin-left: 20px;" *ngIf="report.eggLimit == report.eggsCount"><strong>SE HA ALCANZADO EL LIMITE DE HUEVOS!</strong></p>
+            </div>
+            <p>Límite de gallinas: {{report.chickenLimit}}</p>
+            <div style="display:flex">
+                <p>Cantidad de gallinas disponibles: {{report.chickensCount}}</p>
+                <p style="color: red; margin-left: 20px;" *ngIf="report.chickenLimit == report.chickensCount"><strong>SE HA ALCANZADO EL LIMITE DE GALLINAS!</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

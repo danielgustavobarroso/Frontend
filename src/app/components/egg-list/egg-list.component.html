@@ -1,0 +1,54 @@
+<div style="text-align: center; margin-bottom: 30px; border: 1px solid black; padding-top: 20px; padding-bottom: 20px;">
+    <button style="width: 100px;" (click)="reload()">Recargar</button>
+</div>
+
+<div class="loading" style="text-align: center;" *ngIf="loading">
+    <img src="../../../assets/images/Loading_icon.gif">
+</div>
+
+<div class="container" *ngIf="!this.loading && this.errorMessage != ''" style="text-align: center;">
+    <h6>Ha ocurrido un error. Por favor, intente la operación más tarde.</h6>
+    <img src="../../../assets/images/circulo_error.jpg" width="160px" height="160px">
+    <p>Detalle del error:</p>
+    <p>{{this.errorMessage}}</p>
+</div>
+
+<div class="container" *ngIf="!this.loading && this.errorMessage == '' && !this.eggs.length">
+    <h6 style="text-align: center;">No hay huevos registrados en el sistema.</h6>        
+</div>
+
+<div class="container col-md-8" style="margin-top: 30px; margin-bottom: 30px;" *ngIf="!this.loading && this.errorMessage == '' && this.eggs.length">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Listado de Huevos</h3>
+            <p>Cantidades => <span>[Total: {{eggTotalCount}}]</span>
+                <span style="margin-left: 20px;">[Disponibles: {{eggAvailableCount}}]</span>
+                <span style="margin-left: 20px;">[Descartados: {{eggDiscardedCount}}]</span>
+                <span style="margin-left: 20px;">[Vendidos: {{eggSoldCount}}]</span>
+                <span style="margin-left: 20px;">[Convertidos en gallina: {{eggToChickenCount}}]</span>
+                </p>
+        </div>
+        <div class="class-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>IDENTIFICADOR</th>
+                        <th>ESTADO</th>
+                        <th>FECHA/HORA DE ALTA</th>
+                        <th>ORIGEN</th>
+                        <th>FECHA/HORA ULT. CAMBIO ESTADO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let e of eggs">
+                        <td>{{e.eggId}}</td>
+                        <td>{{states.get(e.state)}}</td>
+                        <td>{{e.creationDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{origins.get(e.origin)}}</td>
+                        <td>{{e.lastStateChangeDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
