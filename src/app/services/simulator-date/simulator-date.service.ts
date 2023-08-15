@@ -16,7 +16,7 @@ export class SimulatorDateService {
     return this.httpClient.get(this.url+'/get-date', {responseType: 'text'});
   }
 
-  setDate(days: String) {
+  setDate(days: number) {
     return this.httpClient.post(this.url+'/set-date', days, {responseType: 'text'});
   }
 

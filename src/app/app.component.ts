@@ -43,7 +43,7 @@ export class AppComponent {
     });
   }
 
-  setDate(days: String) {
+  setDate(days: number) {
     this.simulatorDateService.setDate(days).subscribe({
       next: (resp: String) => {
         alert('Se sumó 1 día. ' + resp);
